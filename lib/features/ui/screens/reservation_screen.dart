@@ -67,9 +67,9 @@ class _ReservationScreenState extends State<ReservationScreen> {
 
   void _calculateDuration() {
     DateTime pickupDate =
-    DateFormat('yyyy-MM-dd HH:mm').parse(pickupDateController.text);
+        DateFormat('yyyy-MM-dd HH:mm').parse(pickupDateController.text);
     DateTime returnDate =
-    DateFormat('yyyy-MM-dd HH:mm').parse(returnDateController.text);
+        DateFormat('yyyy-MM-dd HH:mm').parse(returnDateController.text);
 
     Duration difference = returnDate.difference(pickupDate);
 
@@ -77,8 +77,14 @@ class _ReservationScreenState extends State<ReservationScreen> {
     int hours = difference.inHours.remainder(24);
     int minutes = difference.inMinutes.remainder(60);
 
-    String durationString =
-        '${days}D ${hours}H ${minutes}M'; // Format as desired
+    String durationString = '${days}D ${hours}H ${minutes}M';
+
+    int weeks = days ~/ 7;
+    String weeksString = '$weeks weeks';
+
+    if (weeks > 0) {
+      durationString = '$weeksString ${days % 7}D ${hours}H ${minutes}M';
+    }
 
     durationController.text = durationString;
   }
@@ -267,7 +273,7 @@ class _ReservationScreenState extends State<ReservationScreen> {
                       // ScaffoldMessenger.of(context).showSnackBar(
                       //   const SnackBar(content: Text('Processing Data')),
                       // );
-                      Get.to( CoustomerInfoScreen());
+                      Get.to(CoustomerInfoScreen());
                       Get.snackbar("", 'Saving  Data');
                     }
                   },

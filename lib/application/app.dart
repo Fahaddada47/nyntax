@@ -5,6 +5,8 @@ import 'package:nyntax/application/state_binder.dart';
 import 'package:nyntax/features/ui/screens/additional_charges_screen.dart';
 import 'package:nyntax/features/ui/screens/vehicle_screen.dart';
 
+import '../features/ui/screens/reservation_screen.dart';
+
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -33,7 +35,7 @@ class MyApp extends StatelessWidget {
         ),
       ),
       initialBinding: StateHolderBinder(),
-      home: AdditionalChargesScreen(),
+      home: ReservationScreen(),
     );
   }
 }
