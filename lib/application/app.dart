@@ -1,16 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:nyntax/features/ui/screens/additional_charges_screen.dart';
-import 'package:nyntax/features/ui/screens/reservation_screen.dart';
+import 'package:nyntax/application/state_binder.dart';
 import 'package:nyntax/features/ui/screens/vehicle_screen.dart';
 
-import '../features/ui/screens/customerinfo_screen.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +22,6 @@ class MyApp extends StatelessWidget {
         elevatedButtonTheme: ElevatedButtonThemeData(
           style: ElevatedButton.styleFrom(
             fixedSize: Size(175, 48),
-
             backgroundColor: Color(0xff5D5CFF),
             padding: const EdgeInsets.symmetric(vertical: 10),
             elevation: 3,
@@ -36,7 +31,8 @@ class MyApp extends StatelessWidget {
           ),
         ),
       ),
-      home: AdditionalChargesScreen(),
+      initialBinding: StateHolderBinder(),
+      home: VehicleInfoScreen(),
     );
   }
 }
