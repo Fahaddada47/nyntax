@@ -7,6 +7,7 @@ class CustomTextField extends StatelessWidget {
   final String? Function(String?)? validator;
   final bool obscureText;
   final Icon? suffixIcon;
+  final VoidCallback? onSuffixIconPressed; // Add this line
   final bool readOnly; // Add this line
 
   const CustomTextField({
@@ -17,6 +18,7 @@ class CustomTextField extends StatelessWidget {
     this.validator,
     this.obscureText = false,
     this.suffixIcon,
+    this.onSuffixIconPressed, // Add this line
     this.readOnly = false, // Add this line
   }) : super(key: key);
 
@@ -31,7 +33,7 @@ class CustomTextField extends StatelessWidget {
           labelStyle: const TextStyle(
             color: Color(0xff828290),
             fontWeight: FontWeight.w400,
-            fontSize: 14
+            fontSize: 14,
           ),
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(8.0),
@@ -54,12 +56,17 @@ class CustomTextField extends StatelessWidget {
             borderSide: const BorderSide(color: Colors.red),
           ),
           contentPadding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
-          suffixIcon: suffixIcon,
+          suffixIcon: suffixIcon != null
+              ? IconButton(
+            icon: suffixIcon!,
+            onPressed: onSuffixIconPressed,
+          )
+              : null,
         ),
         keyboardType: keyboardType,
         validator: validator,
         obscureText: obscureText,
-        readOnly: readOnly, // Add this line
+        readOnly: readOnly,
       ),
     );
   }

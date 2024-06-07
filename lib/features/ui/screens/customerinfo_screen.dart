@@ -4,6 +4,8 @@ import 'package:get_storage/get_storage.dart';
 import 'package:nyntax/features/ui/screens/details.dart';
 import 'package:nyntax/features/ui/widget/custome_text_filed.dart';
 
+import 'additional_charges_screen.dart';
+
 class CoustomerInfoScreen extends StatefulWidget {
   @override
   _CoustomerInfoScreenState createState() => _CoustomerInfoScreenState();
@@ -38,7 +40,7 @@ class _CoustomerInfoScreenState extends State<CoustomerInfoScreen> {
     box.write('firstName', firstNameController.text);
     box.write('lastName', lastNameController.text);
     box.write('email', emailController.text);
-    box.write('phone', phoneController.text);
+    box.write('phone', phoneController.text.toString());
   }
 
   @override
@@ -205,7 +207,7 @@ class _CoustomerInfoScreenState extends State<CoustomerInfoScreen> {
                       ScaffoldMessenger.of(context).showSnackBar(
                         const SnackBar(content: Text('Processing Data')),
                       );
-                      Get.to(DisplayReservationScreen());
+                      Get.to(AdditionalChargesScreen());
                     }
                   },
                   child: Text(

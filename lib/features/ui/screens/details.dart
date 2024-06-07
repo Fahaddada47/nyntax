@@ -2,7 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:nyntax/features/ui/widget/detail_container.dart';
 
-class DisplayReservationScreen extends StatelessWidget {
+class DisplayReservationScreen extends StatefulWidget {
+  const DisplayReservationScreen({super.key});
+
+  @override
+  State<DisplayReservationScreen> createState() =>
+      _DisplayReservationScreenState();
+}
+
+class _DisplayReservationScreenState extends State<DisplayReservationScreen> {
   final box = GetStorage();
 
   TextStyle getTextStyle({
@@ -21,19 +29,21 @@ class DisplayReservationScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    String firstName = box.read('firstName') ?? '';
-    String lastName = box.read('lastName') ?? '';
-    String email = box.read('email') ?? '';
-    String phone = box.read('phone') ?? '';
-    String reservationId = box.read('reservationId') ?? '';
-    String pickupDate = box.read('pickupDate') ?? '';
-    String returnDate = box.read('returnDate') ?? '';
-    String vehicleType = box.read('vehicleType') ?? '';
-    String vehicleModel = box.read('vehicleModel') ?? '';
-    String weeklyCharge = box.read('weeklyCharge') ?? '';
-    String dailyCharge = box.read('dailyCharge') ?? '';
-    String collisionWaiver = box.read('collisionWaiver') ?? '';
-    String netTotal = box.read('netTotal') ?? '';
+    dynamic firstName = box.read('firstName')?.toString() ?? '';
+    dynamic lastName = box.read('lastName')?.toString() ?? '';
+    dynamic email = box.read('email')?.toString() ?? '';
+    dynamic phone = box.read('phone')?.toString() ?? '';
+    dynamic reservationId = box.read('reservationId')?.toString() ?? '';
+    dynamic pickupDate = box.read('pickupDate')?.toString() ?? '';
+    dynamic returnDate = box.read('returnDate')?.toString() ?? '';
+    dynamic vehicleType = box.read('vehicleType')?.toString() ?? '';
+    dynamic vehicleModel = box.read('vehicleModel')?.toString() ?? '';
+    dynamic weeklyCharge = box.read('weeklyCharge')?.toString() ?? '';
+    dynamic hourlyCharge = box.read('hourlyCharge')?.toString() ?? '';
+    dynamic dailyCharge = box.read('dailyCharge')?.toString() ?? '';
+    dynamic selectedTitles = box.read('selectedTitles')?.toString() ?? '';
+    dynamic selectedValues = box.read('selectedValues')?.toString() ?? '';
+    dynamic netTotal = box.read('netTotal')?.toString() ?? '';
 
     return Scaffold(
       appBar: AppBar(
@@ -108,27 +118,32 @@ class DisplayReservationScreen extends StatelessWidget {
               color: const Color(0xFF5D5CFF),
             ),
             const SizedBox(height: 24),
-            DataTable(
-              columns: [
-                DataColumn(label: Text('Charge', style: getTextStyle())),
-                DataColumn(label: Text('Total', style: getTextStyle())),
-              ],
-              rows: [
-                DataRow(cells: [
-                  DataCell(Text('Weekly (1 week)', style: getTextStyle())),
-                  DataCell(Text(weeklyCharge, style: getTextStyle())),
-                ]),
-                DataRow(cells: [
-                  DataCell(Text('Daily (2 days)', style: getTextStyle())),
-                  DataCell(Text(dailyCharge, style: getTextStyle())),
-                ]),
-                DataRow(cells: [
-                  DataCell(
-                      Text('Collision Damage Waiver', style: getTextStyle())),
-                  DataCell(Text(collisionWaiver, style: getTextStyle())),
-                ]),
-              ],
-            ),
+            DetailContainer(details: [
+              {'label': 'Weekly (1 week)', 'value': weeklyCharge},
+              {'label': 'Daily (2 days)', 'value': dailyCharge},
+              {'label': selectedTitles, 'value': selectedValues},
+            ]),
+
+            // DataTable(
+            //   columns: [
+            //     DataColumn(label: Text('Charge', style: getTextStyle())),
+            //     DataColumn(label: Text('Total', style: getTextStyle())),
+            //   ],
+            //   rows: [
+            //     DataRow(cells: [
+            //       DataCell(Text('Weekly (1 week)', style: getTextStyle())),
+            //       DataCell(Text(weeklyCharge, style: getTextStyle())),
+            //     ]),
+            //     DataRow(cells: [
+            //       DataCell(Text('Daily (2 days)', style: getTextStyle())),
+            //       DataCell(Text(dailyCharge, style: getTextStyle())),
+            //     ]),
+            //     DataRow(cells: [
+            //       DataCell(Text(selectedTitles, style: getTextStyle())),
+            //       DataCell(Text(selectedValues, style: getTextStyle())),
+            //     ]),
+            //   ],
+            // ),
             const SizedBox(height: 16),
             Text("Net Total: $netTotal",
                 style: getTextStyle(fontWeight: FontWeight.w600)),

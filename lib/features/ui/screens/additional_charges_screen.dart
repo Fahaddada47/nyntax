@@ -1,17 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
+import 'package:nyntax/features/ui/screens/details.dart';
+import 'package:nyntax/features/ui/widget/check_box_item.dart';
 
 class AdditionalChargesScreen extends StatefulWidget {
+  const AdditionalChargesScreen({super.key});
+
   @override
-  _AdditionalChargesScreenState createState() => _AdditionalChargesScreenState();
+  _AdditionalChargesScreenState createState() =>
+      _AdditionalChargesScreenState();
 }
 
 class _AdditionalChargesScreenState extends State<AdditionalChargesScreen> {
-  bool collisionDamageWaiver = false;
-  bool liabilityInsurance = false;
-  bool rentalTax = false;
-
+  final box = GetStorage();
   String defaultFontFamily = 'Poppins';
+
+  List<CheckboxItem> checkboxItems = [
+    CheckboxItem(title: 'Collision Damage Waiver', price: 9.00),
+    CheckboxItem(title: 'Liability Insurance', price: 15.00),
+    CheckboxItem(title: 'Rental Tax', percentage: 11.5),
+  ];
 
   TextStyle getTextStyle({
     Color? color,
@@ -36,7 +45,7 @@ class _AdditionalChargesScreenState extends State<AdditionalChargesScreen> {
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
-          icon: Icon(Icons.arrow_back_ios_sharp),
+          icon: const Icon(Icons.arrow_back_ios_sharp),
           onPressed: () {
             Get.back();
           },
@@ -65,68 +74,47 @@ class _AdditionalChargesScreenState extends State<AdditionalChargesScreen> {
                   border: Border.all(color: Colors.grey.shade300),
                 ),
                 child: Column(
-                  children: [
-                    CheckboxListTile(
+                  children: checkboxItems.map((item) {
+                    return CheckboxListTile(
                       title: Text(
-                        'Collision Damage Waiver',
+                        item.title,
                         style: getTextStyle(),
                       ),
                       secondary: Text(
-                        '\$9.00',
+                        item.secondaryText,
                         style: getTextStyle(),
                       ),
-                      value: collisionDamageWaiver,
+                      value: item.value,
                       onChanged: (bool? value) {
                         setState(() {
-                          collisionDamageWaiver = value ?? false;
+                          item.value = value ?? false;
                         });
                       },
                       controlAffinity: ListTileControlAffinity.leading,
-                      activeColor: Color(0xFFD7D7FF),
-                    ),
-                    CheckboxListTile(
-                      title: Text(
-                        'Liability Insurance',
-                        style: getTextStyle(),
-                      ),
-                      secondary: Text(
-                        '\$15.00',
-                        style: getTextStyle(),
-                      ),
-                      value: liabilityInsurance,
-                      onChanged: (bool? value) {
-                        setState(() {
-                          liabilityInsurance = value ?? false;
-                        });
-                      },
-                      controlAffinity: ListTileControlAffinity.leading,
-                      activeColor: Color(0xFFD7D7FF),
-                    ),
-                    CheckboxListTile(
-                      title: Text(
-                        'Rental Tax',
-                        style: getTextStyle(),
-                      ),
-                      secondary: Text(
-                        '11.5%',
-                        style: getTextStyle(),
-                      ),
-                      value: rentalTax,
-                      onChanged: (bool? value) {
-                        setState(() {
-                          rentalTax = value ?? false;
-                        });
-                      },
-                      controlAffinity: ListTileControlAffinity.leading,
-                      activeColor: Color(0xFFD7D7FF),
-                    ),
-                  ],
+                      activeColor: const Color(0xFFD7D7FF),
+                    );
+                  }).toList(),
                 ),
               ),
               SizedBox(height: size.height * 0.45),
               Center(
                 child: ElevatedButton(
                   onPressed: () {
+                    List<String> selectedTitles = [];
+                    List<double> selectedValues = [];
+                    for (var item in checkboxItems) {
+                      if (item.value) {
+                        selectedTitles.add(item.title);
+                        if (item.price != null) {
+                          selectedValues.add(item.price!);
+                        } else if (item.percentage != null) {
+                          selectedValues.add(item.percentage!);
+                        }
+                      }
+                    }
+                    box.write('selectedTitles', selectedTitles);
+                    box.write('selectedValues', selectedValues);
+                    Get.to(const DisplayReservationScreen());
                   },
                   child: Text(
                     'Next',
@@ -135,7 +123,6 @@ class _AdditionalChargesScreenState extends State<AdditionalChargesScreen> {
                       color: Colors.white,
                     ),
                   ),
-
                 ),
               ),
             ],

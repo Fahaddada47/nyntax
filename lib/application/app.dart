@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nyntax/application/state_binder.dart';
+import 'package:nyntax/features/ui/screens/additional_charges_screen.dart';
 import 'package:nyntax/features/ui/screens/vehicle_screen.dart';
 
 
@@ -32,7 +33,7 @@ class MyApp extends StatelessWidget {
         ),
       ),
       initialBinding: StateHolderBinder(),
-      home: VehicleInfoScreen(),
+      home: AdditionalChargesScreen(),
     );
   }
 }

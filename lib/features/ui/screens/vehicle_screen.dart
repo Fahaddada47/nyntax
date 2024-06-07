@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:nyntax/features/controller/vehicle_controller.dart';
+import 'package:nyntax/features/ui/screens/customerinfo_screen.dart';
 import 'package:nyntax/features/ui/widget/custome_text_filed.dart';
-import '../../model/vehicle_model.dart';
+import '../../model/vehicle_model.dart' as vehicle_model;
 
 class VehicleInfoScreen extends StatefulWidget {
   @override
@@ -14,6 +16,8 @@ class _VehicleInfoScreenState extends State<VehicleInfoScreen> {
   String? selectedVehicleType;
   final TextEditingController vehicleModelController = TextEditingController();
   final VehicleController vehicleController = Get.find();
+  final box = GetStorage();
+  vehicle_model.Data? selectedVehicle;
 
   String defaultFontFamily = 'Poppins';
 
@@ -29,6 +33,16 @@ class _VehicleInfoScreenState extends State<VehicleInfoScreen> {
       fontFamily: fontFamily ?? defaultFontFamily,
       fontWeight: fontWeight ?? FontWeight.w300,
     );
+  }
+
+  void searchVehicle() {
+    setState(() {
+      selectedVehicle = vehicleController.vehicle.value.data?.firstWhereOrNull(
+            (vehicle) =>
+        vehicle.type == selectedVehicleType &&
+            vehicle.model!.toLowerCase() == vehicleModelController.text.toLowerCase(),
+      );
+    });
   }
 
   @override
@@ -150,6 +164,7 @@ class _VehicleInfoScreenState extends State<VehicleInfoScreen> {
                         controller: vehicleModelController,
                         labelText: '',
                         suffixIcon: const Icon(Icons.search),
+                        onSuffixIconPressed: searchVehicle,
                         validator: (value) {
                           if (value == null || value.isEmpty) {
                             return 'Please enter a vehicle model';
@@ -166,8 +181,6 @@ class _VehicleInfoScreenState extends State<VehicleInfoScreen> {
                 if (vehicleController.isLoading.value) {
                   return const Center(child: CircularProgressIndicator());
                 }
-                Data? selectedVehicle = vehicleController.vehicle.value.data?.firstWhereOrNull(
-                        (vehicle) => vehicle.type == selectedVehicleType || vehicle.model == vehicleModelController.text);
 
                 if (selectedVehicle == null) {
                   return const Center(child: Text('No vehicle selected'));
@@ -188,7 +201,7 @@ class _VehicleInfoScreenState extends State<VehicleInfoScreen> {
                           child: Row(
                             children: [
                               Image.network(
-                                selectedVehicle.imageURL.toString(),
+                                selectedVehicle!.imageURL.toString(),
                                 width: 163,
                                 height: 85,
                               ),
@@ -197,7 +210,7 @@ class _VehicleInfoScreenState extends State<VehicleInfoScreen> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                    '${selectedVehicle.make} ${selectedVehicle.model}',
+                                    '${selectedVehicle!.make} ${selectedVehicle!.model}',
                                     style: getTextStyle(
                                         fontSize: 20,
                                         fontWeight: FontWeight.w600,
@@ -210,7 +223,7 @@ class _VehicleInfoScreenState extends State<VehicleInfoScreen> {
                                       const Icon(Icons.person, size: 16),
                                       const SizedBox(width: 4.0),
                                       Text(
-                                        '${selectedVehicle.seats} seats',
+                                        '${selectedVehicle!.seats} seats',
                                         style: getTextStyle(
                                             fontSize: 14,
                                             fontWeight: FontWeight.w400,
@@ -226,7 +239,7 @@ class _VehicleInfoScreenState extends State<VehicleInfoScreen> {
                                       const Icon(Icons.luggage, size: 16),
                                       const SizedBox(width: 4.0),
                                       Text(
-                                        '${selectedVehicle.bags} bags',
+                                        '${selectedVehicle!.bags} bags',
                                         style: getTextStyle(
                                             fontSize: 14,
                                             fontWeight: FontWeight.w400,
@@ -252,7 +265,7 @@ class _VehicleInfoScreenState extends State<VehicleInfoScreen> {
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [
                             Text(
-                              '\$${selectedVehicle.rates!.hourly} / Hour',
+                              '\$${selectedVehicle!.rates!.hourly} / Hour',
                               style: getTextStyle(
                                   fontSize: 14,
                                   fontWeight: FontWeight.w500,
@@ -260,7 +273,7 @@ class _VehicleInfoScreenState extends State<VehicleInfoScreen> {
                                   color: const Color(0xff6F6F6F)),
                             ),
                             Text(
-                              '\$${selectedVehicle.rates!.daily} / Day',
+                              '\$${selectedVehicle!.rates!.daily} / Day',
                               style: getTextStyle(
                                   fontSize: 14,
                                   fontWeight: FontWeight.w500,
@@ -268,7 +281,7 @@ class _VehicleInfoScreenState extends State<VehicleInfoScreen> {
                                   color: const Color(0xff6F6F6F)),
                             ),
                             Text(
-                              '\$${selectedVehicle.rates!.weekly} / Week',
+                              '\$${selectedVehicle!.rates!.weekly} / Week',
                               style: getTextStyle(
                                   fontSize: 14,
                                   fontWeight: FontWeight.w500,
@@ -287,10 +300,17 @@ class _VehicleInfoScreenState extends State<VehicleInfoScreen> {
                 child: ElevatedButton(
                   onPressed: () {
                     if (_formKey.currentState!.validate()) {
+                      // Save selected vehicle data to GetStorage
+                      box.write('vehicleType', selectedVehicleType);
+                      box.write('vehicleModel', selectedVehicle!.model);
+                      box.write('weeklyCharge', selectedVehicle!.rates!.weekly);
+                      box.write('dailyCharge', selectedVehicle!.rates!.daily);
+                      box.write('hourlyCharge', selectedVehicle!.rates!.hourly);
+
                       ScaffoldMessenger.of(context).showSnackBar(
                         const SnackBar(content: Text('Processing Data')),
                       );
-                      // Navigate to the next screen
+                      Get.to(CoustomerInfoScreen());
                     }
                   },
                   child: Text(
@@ -309,3 +329,4 @@ class _VehicleInfoScreenState extends State<VehicleInfoScreen> {
     );
   }
 }
+
