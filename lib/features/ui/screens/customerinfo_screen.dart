@@ -203,9 +203,8 @@ class _CoustomerInfoScreenState extends State<CoustomerInfoScreen> {
                   onPressed: () {
                     if (_formKey.currentState!.validate()) {
                       _saveData();
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(content: Text('Processing Data')),
-                      );
+                      Get.snackbar("", 'Saving Data');
+
                       Get.to(VehicleInfoScreen());
                     }
                   },
