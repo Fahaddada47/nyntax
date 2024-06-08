@@ -79,7 +79,7 @@ class _ReservationScreenState extends State<ReservationScreen> {
     int weeks = days ~/ 7;
     days = days % 7;
 
-    String durationString = '${weeks}W ${days}D ${hours}H';
+    String durationString = '${weeks} Weeks ${days} Days ${hours} Hours';
 
     if (minutes > 0) {
       durationString += ' ${minutes}M';
@@ -120,7 +120,7 @@ class _ReservationScreenState extends State<ReservationScreen> {
                 padding: const EdgeInsets.all(8.0),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(4.0),
-                  border: Border.all(color: Colors.grey.shade300),
+                  border: Border.all(color: Color(0xFFD7D7FF)),
                 ),
                 child: Form(
                   key: _formKey,
@@ -224,23 +224,42 @@ class _ReservationScreenState extends State<ReservationScreen> {
                         ),
                       ),
                       const SizedBox(height: 6.0),
-                      RichText(
-                        text: TextSpan(
-                          text: 'Duration',
-                          style: getTextStyle(),
-                        ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          RichText(
+                            text: TextSpan(
+                              text: 'Duration',
+                              style: getTextStyle(),
+                            ),
+                          ),
+                          Container(
+                            height: 45,
+                            width: 180,
+                            padding: const EdgeInsets.all(8.0),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(4.0),
+                              border: Border.all(color: Color(0xFFD7D7FF)),
+                            ),
+                            child: Center(
+                              child: Text(durationController.text,style: getTextStyle(),),
+                            ),
+                          ),
+
+                        ],
                       ),
-                      CustomTextField(
-                        controller: durationController,
-                        labelText: '',
-                        readOnly: true,
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Please enter the duration';
-                          }
-                          return null;
-                        },
-                      ),
+
+                      // CustomTextField(
+                      //   controller: durationController,
+                      //   labelText: '',
+                      //   readOnly: true,
+                      //   validator: (value) {
+                      //     if (value == null || value.isEmpty) {
+                      //       return 'Please enter the duration';
+                      //     }
+                      //     return null;
+                      //   },
+                      // ),
                       const SizedBox(height: 6.0),
                       RichText(
                         text: TextSpan(
@@ -248,6 +267,7 @@ class _ReservationScreenState extends State<ReservationScreen> {
                           style: getTextStyle(),
                         ),
                       ),
+
                       CustomTextField(
                         controller: discountController,
                         labelText: '',
@@ -263,7 +283,7 @@ class _ReservationScreenState extends State<ReservationScreen> {
                   ),
                 ),
               ),
-              const SizedBox(height: 126),
+              const SizedBox(height: 80),
               Center(
                 child: ElevatedButton(
                   onPressed: () {

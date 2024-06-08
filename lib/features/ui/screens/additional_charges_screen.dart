@@ -71,7 +71,7 @@ class _AdditionalChargesScreenState extends State<AdditionalChargesScreen> {
               Container(
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(4.0),
-                  border: Border.all(color: Colors.grey.shade300),
+                  border: Border.all(color: Color(0xFFD7D7FF)),
                 ),
                 child: Column(
                   children: checkboxItems.map((item) {
@@ -96,7 +96,7 @@ class _AdditionalChargesScreenState extends State<AdditionalChargesScreen> {
                   }).toList(),
                 ),
               ),
-              SizedBox(height: size.height * 0.45),
+              SizedBox(height: size.height * 0.30),
               Center(
                 child: ElevatedButton(
                   onPressed: () {

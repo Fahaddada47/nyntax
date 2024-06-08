@@ -78,7 +78,7 @@ class _VehicleInfoScreenState extends State<VehicleInfoScreen> {
                 padding: const EdgeInsets.all(8.0),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(4.0),
-                  border: Border.all(color: Colors.grey.shade300),
+                  border: Border.all(color: Color(0xFFD7D7FF)),
                 ),
                 child: Form(
                   key: _formKey,
@@ -116,34 +116,42 @@ class _VehicleInfoScreenState extends State<VehicleInfoScreen> {
                                 .toList() ??
                             [];
 
-                        return DropdownButtonFormField<String>(
-                          icon: const Icon(Icons.keyboard_arrow_down_outlined),
-                          value: selectedVehicleType,
-                          items: vehicleTypes.map((String value) {
-                            return DropdownMenuItem<String>(
-                              value: value,
-                              child: Text(
-                                value,
-                                style: getTextStyle(
+                        return SizedBox(
+                          height: 55,
+                          child: DropdownButtonFormField<String>(
+                            focusColor: Color(0xFFD7D7FF),
+                            icon: const Icon(Icons.keyboard_arrow_down_outlined),
+                            value: selectedVehicleType,
+                            items: vehicleTypes.map((String value) {
+                              return DropdownMenuItem<String>(
+                                value: value,
+                                child: Text(
+                                  value,
+                                  style: getTextStyle(
                                     fontWeight: FontWeight.w400,
-                                    color: const Color(0xff828290)),
+                                    color: const Color(0xff828290),
+                                  ),
+                                ),
+                              );
+                            }).toList(),
+                            onChanged: (newValue) {
+                              setState(() {
+                                selectedVehicleType = newValue;
+                              });
+                            },
+                            decoration: const InputDecoration(
+                              border: OutlineInputBorder(
+                                borderSide: BorderSide(color: Color(0xFFD7D7FF)),
                               ),
-                            );
-                          }).toList(),
-                          onChanged: (newValue) {
-                            setState(() {
-                              selectedVehicleType = newValue;
-                            });
-                          },
-                          decoration: const InputDecoration(
-                            border: OutlineInputBorder(),
+                            ),
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return 'Please select a vehicle type';
+                              }
+                              return null;
+                            },
                           ),
-                          validator: (value) {
-                            if (value == null || value.isEmpty) {
-                              return 'Please select a vehicle type';
-                            }
-                            return null;
-                          },
+
                         );
                       }),
                       const SizedBox(height: 16.0),
@@ -299,7 +307,7 @@ class _VehicleInfoScreenState extends State<VehicleInfoScreen> {
                   ),
                 );
               }),
-              const SizedBox(height: 185),
+              const SizedBox(height: 105),
               Center(
                 child: ElevatedButton(
                   onPressed: () {

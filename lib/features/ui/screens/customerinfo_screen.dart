@@ -76,7 +76,7 @@ class _CoustomerInfoScreenState extends State<CoustomerInfoScreen> {
                 padding: const EdgeInsets.all(8.0),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(4.0),
-                  border: Border.all(color: Colors.grey.shade300),
+                  border: Border.all(color: Color(0xFFD7D7FF)),
                 ),
                 child: Form(
                   key: _formKey,
@@ -197,7 +197,7 @@ class _CoustomerInfoScreenState extends State<CoustomerInfoScreen> {
                   ),
                 ),
               ),
-              const SizedBox(height: 160),
+              const SizedBox(height: 120),
               Center(
                 child: ElevatedButton(
                   onPressed: () {
