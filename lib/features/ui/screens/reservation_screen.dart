@@ -233,7 +233,7 @@ class _ReservationScreenState extends State<ReservationScreen> {
                               style: getTextStyle(),
                             ),
                           ),
-                          const SizedBox(width: 40,),
+                          const SizedBox(width: 35,),
                           Expanded(
                             child: CustomTextField(
                               controller: durationController,
