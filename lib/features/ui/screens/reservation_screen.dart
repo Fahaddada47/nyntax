@@ -233,16 +233,11 @@ class _ReservationScreenState extends State<ReservationScreen> {
                               style: getTextStyle(),
                             ),
                           ),
-                          Container(
-                            height: 45,
-                            width: 160,
-                            padding: const EdgeInsets.all(8.0),
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(4.0),
-                              border: Border.all(color: const Color(0xFFD7D7FF)),
-                            ),
-                            child: TextFormField(
+                          const SizedBox(width: 40,),
+                          Expanded(
+                            child: CustomTextField(
                               controller: durationController,
+                              labelText: '',
                               readOnly: true,
                               validator: (value) {
                                 if (value == null || value.isEmpty) {
@@ -250,12 +245,9 @@ class _ReservationScreenState extends State<ReservationScreen> {
                                 }
                                 return null;
                               },
-                              style: getTextStyle(fontWeight: FontWeight.w400),
-                              decoration: const InputDecoration(
-                                border: InputBorder.none,
-                              ),
                             ),
                           ),
+
                         ],
                       ),
                       // CustomTextField(
