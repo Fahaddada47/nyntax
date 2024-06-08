@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:nyntax/features/ui/screens/customerinfo_screen.dart';
-import 'package:nyntax/features/ui/screens/details.dart';
 import 'package:nyntax/features/ui/widget/custome_text_filed.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -77,13 +76,13 @@ class _ReservationScreenState extends State<ReservationScreen> {
     int hours = difference.inHours.remainder(24);
     int minutes = difference.inMinutes.remainder(60);
 
-    String durationString = '${days}D ${hours}H ${minutes}M';
-
     int weeks = days ~/ 7;
-    String weeksString = '$weeks weeks';
+    days = days % 7;
 
-    if (weeks > 0) {
-      durationString = '$weeksString ${days % 7}D ${hours}H ${minutes}M';
+    String durationString = '${weeks} Weeks ${days} Days ${hours} Hours';
+
+    if (minutes > 0) {
+      durationString += ' ${minutes}M';
     }
 
     durationController.text = durationString;
@@ -121,7 +120,7 @@ class _ReservationScreenState extends State<ReservationScreen> {
                 padding: const EdgeInsets.all(8.0),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(4.0),
-                  border: Border.all(color: Colors.grey.shade300),
+                  border: Border.all(color: const Color(0xFFD7D7FF)),
                 ),
                 child: Form(
                   key: _formKey,
@@ -225,23 +224,43 @@ class _ReservationScreenState extends State<ReservationScreen> {
                         ),
                       ),
                       const SizedBox(height: 6.0),
-                      RichText(
-                        text: TextSpan(
-                          text: 'Duration',
-                          style: getTextStyle(),
-                        ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          RichText(
+                            text: TextSpan(
+                              text: 'Duration',
+                              style: getTextStyle(),
+                            ),
+                          ),
+                          const SizedBox(width: 35,),
+                          Expanded(
+                            child: CustomTextField(
+                              controller: durationController,
+                              labelText: '',
+                              readOnly: true,
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return 'Please enter the duration';
+                                }
+                                return null;
+                              },
+                            ),
+                          ),
+
+                        ],
                       ),
-                      CustomTextField(
-                        controller: durationController,
-                        labelText: '',
-                        readOnly: true,
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Please enter the duration';
-                          }
-                          return null;
-                        },
-                      ),
+                      // CustomTextField(
+                      //   controller: durationController,
+                      //   labelText: '',
+                      //   readOnly: true,
+                      //   validator: (value) {
+                      //     if (value == null || value.isEmpty) {
+                      //       return 'Please enter the duration';
+                      //     }
+                      //     return null;
+                      //   },
+                      // ),
                       const SizedBox(height: 6.0),
                       RichText(
                         text: TextSpan(
@@ -264,17 +283,14 @@ class _ReservationScreenState extends State<ReservationScreen> {
                   ),
                 ),
               ),
-              const SizedBox(height: 126),
+              const SizedBox(height: 80),
               Center(
                 child: ElevatedButton(
                   onPressed: () {
                     if (_formKey.currentState!.validate()) {
                       _saveData();
-                      // ScaffoldMessenger.of(context).showSnackBar(
-                      //   const SnackBar(content: Text('Processing Data')),
-                      // );
                       Get.to(CoustomerInfoScreen());
-                      Get.snackbar("", 'Saving  Data');
+                      Get.snackbar("", 'Saving Data');
                     }
                   },
                   child: Text(

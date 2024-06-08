@@ -1,7 +1,7 @@
 class CheckboxItem {
-  String title;
-  double? price;
-  double? percentage;
+  final String title;
+  final double? price;
+  final double? percentage;
   bool value;
 
   CheckboxItem({
@@ -15,8 +15,9 @@ class CheckboxItem {
     if (price != null) {
       return '\$${price!.toStringAsFixed(2)}';
     } else if (percentage != null) {
-      return '${percentage!.toStringAsFixed(1)}%';
+      return '${percentage!.toStringAsFixed(2)}%';
+    } else {
+      return '';
     }
-    return '';
   }
 }

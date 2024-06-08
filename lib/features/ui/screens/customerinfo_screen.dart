@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:nyntax/features/ui/screens/details.dart';
+import 'package:nyntax/features/ui/screens/vehicle_screen.dart';
 import 'package:nyntax/features/ui/widget/custome_text_filed.dart';
-
-import 'additional_charges_screen.dart';
 
 class CoustomerInfoScreen extends StatefulWidget {
   @override
@@ -53,10 +51,11 @@ class _CoustomerInfoScreenState extends State<CoustomerInfoScreen> {
             Get.back();
           },
         ),
-        title: Text("Back",style: getTextStyle(),),
+        title: Text(
+          "Back",
+          style: getTextStyle(),
+        ),
       ),
-
-
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(16.0),
@@ -77,7 +76,7 @@ class _CoustomerInfoScreenState extends State<CoustomerInfoScreen> {
                 padding: const EdgeInsets.all(8.0),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(4.0),
-                  border: Border.all(color: Colors.grey.shade300),
+                  border: Border.all(color: Color(0xFFD7D7FF)),
                 ),
                 child: Form(
                   key: _formKey,
@@ -198,16 +197,15 @@ class _CoustomerInfoScreenState extends State<CoustomerInfoScreen> {
                   ),
                 ),
               ),
-              const SizedBox(height: 160),
+              const SizedBox(height: 120),
               Center(
                 child: ElevatedButton(
                   onPressed: () {
                     if (_formKey.currentState!.validate()) {
                       _saveData();
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(content: Text('Processing Data')),
-                      );
-                      Get.to(AdditionalChargesScreen());
+                      Get.snackbar("", 'Saving Data');
+
+                      Get.to(VehicleInfoScreen());
                     }
                   },
                   child: Text(

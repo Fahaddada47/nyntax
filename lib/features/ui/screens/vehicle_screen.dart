@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:nyntax/features/controller/vehicle_controller.dart';
-import 'package:nyntax/features/ui/screens/customerinfo_screen.dart';
+import 'package:nyntax/features/ui/screens/additional_charges_screen.dart';
 import 'package:nyntax/features/ui/widget/custome_text_filed.dart';
 import '../../model/vehicle_model.dart' as vehicle_model;
 
@@ -38,9 +38,10 @@ class _VehicleInfoScreenState extends State<VehicleInfoScreen> {
   void searchVehicle() {
     setState(() {
       selectedVehicle = vehicleController.vehicle.value.data?.firstWhereOrNull(
-            (vehicle) =>
-        vehicle.type == selectedVehicleType &&
-            vehicle.model!.toLowerCase() == vehicleModelController.text.toLowerCase(),
+        (vehicle) =>
+            vehicle.type == selectedVehicleType &&
+            vehicle.model!.toLowerCase() ==
+                vehicleModelController.text.toLowerCase(),
       );
     });
   }
@@ -77,7 +78,7 @@ class _VehicleInfoScreenState extends State<VehicleInfoScreen> {
                 padding: const EdgeInsets.all(8.0),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(4.0),
-                  border: Border.all(color: Colors.grey.shade300),
+                  border: Border.all(color: Color(0xFFD7D7FF)),
                 ),
                 child: Form(
                   key: _formKey,
@@ -103,43 +104,54 @@ class _VehicleInfoScreenState extends State<VehicleInfoScreen> {
                       const SizedBox(height: 8.0),
                       Obx(() {
                         if (vehicleController.isLoading.value) {
-                          return const Center(child: CircularProgressIndicator());
+                          return const Center(
+                              child: CircularProgressIndicator());
                         }
-                        List<String> vehicleTypes = vehicleController.vehicle.value.data
-                            ?.map((vehicle) => vehicle.type)
-                            .where((type) => type != null)
-                            .toSet()
-                            .cast<String>()
-                            .toList() ?? [];
+                        List<String> vehicleTypes = vehicleController
+                                .vehicle.value.data
+                                ?.map((vehicle) => vehicle.type)
+                                .where((type) => type != null)
+                                .toSet()
+                                .cast<String>()
+                                .toList() ??
+                            [];
 
-                        return DropdownButtonFormField<String>(
-                          icon: const Icon(Icons.keyboard_arrow_down_outlined),
-                          value: selectedVehicleType,
-                          items: vehicleTypes.map((String value) {
-                            return DropdownMenuItem<String>(
-                              value: value,
-                              child: Text(
-                                value,
-                                style: getTextStyle(
+                        return SizedBox(
+                          height: 55,
+                          child: DropdownButtonFormField<String>(
+                            focusColor: Color(0xFFD7D7FF),
+                            icon: const Icon(Icons.keyboard_arrow_down_outlined),
+                            value: selectedVehicleType,
+                            items: vehicleTypes.map((String value) {
+                              return DropdownMenuItem<String>(
+                                value: value,
+                                child: Text(
+                                  value,
+                                  style: getTextStyle(
                                     fontWeight: FontWeight.w400,
-                                    color: const Color(0xff828290)),
+                                    color: const Color(0xff828290),
+                                  ),
+                                ),
+                              );
+                            }).toList(),
+                            onChanged: (newValue) {
+                              setState(() {
+                                selectedVehicleType = newValue;
+                              });
+                            },
+                            decoration: const InputDecoration(
+                              border: OutlineInputBorder(
+                                borderSide: BorderSide(color: Color(0xFFD7D7FF)),
                               ),
-                            );
-                          }).toList(),
-                          onChanged: (newValue) {
-                            setState(() {
-                              selectedVehicleType = newValue;
-                            });
-                          },
-                          decoration: const InputDecoration(
-                            border: OutlineInputBorder(),
+                            ),
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return 'Please select a vehicle type';
+                              }
+                              return null;
+                            },
                           ),
-                          validator: (value) {
-                            if (value == null || value.isEmpty) {
-                              return 'Please select a vehicle type';
-                            }
-                            return null;
-                          },
+
                         );
                       }),
                       const SizedBox(height: 16.0),
@@ -295,7 +307,7 @@ class _VehicleInfoScreenState extends State<VehicleInfoScreen> {
                   ),
                 );
               }),
-              const SizedBox(height: 185),
+              const SizedBox(height: 105),
               Center(
                 child: ElevatedButton(
                   onPressed: () {
@@ -310,7 +322,7 @@ class _VehicleInfoScreenState extends State<VehicleInfoScreen> {
                       ScaffoldMessenger.of(context).showSnackBar(
                         const SnackBar(content: Text('Processing Data')),
                       );
-                      Get.to(CoustomerInfoScreen());
+                      Get.to(const AdditionalChargesScreen());
                     }
                   },
                   child: Text(
@@ -329,4 +341,3 @@ class _VehicleInfoScreenState extends State<VehicleInfoScreen> {
     );
   }
 }
-
