@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -140,10 +141,17 @@ class _VehicleInfoScreenState extends State<VehicleInfoScreen> {
                         padding: const EdgeInsets.all(8.0),
                         child: Row(
                           children: [
-                            Image.network(
-                              selectedVehicle!.imageURL.toString(),
-                              width: 163,
-                              height: 85,
+                            // Image.network(
+                            //   selectedVehicle!.imageURL.toString(),
+                            //   width: 163,
+                            //   height: 85,
+                            // ),
+                            CachedNetworkImage(
+                                width: 163,
+                                height: 85,
+                              imageUrl: selectedVehicle!.imageURL.toString(),
+                              placeholder: (context, url) => CircularProgressIndicator(),
+                              errorWidget: (context, url, error) => Icon(Icons.error),
                             ),
                             const SizedBox(width: 16.0),
                             Column(
