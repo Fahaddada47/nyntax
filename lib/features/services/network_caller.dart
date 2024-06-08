@@ -14,7 +14,7 @@ class NetworkCaller {
       } else if (response.statusCode == 401) {
         // Handle 401 case if needed
       } else {
-        return NetworkResponse(false, response.statusCode, {}); // Passing an empty map
+        return NetworkResponse(false, response.statusCode, {});
       }
     } catch (e) {
       log(e.toString());
