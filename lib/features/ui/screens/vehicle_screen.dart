@@ -89,7 +89,6 @@ class _VehicleInfoScreenState extends State<VehicleInfoScreen> {
                 child: ElevatedButton(
                   onPressed: () {
                     if (_formKey.currentState!.validate()) {
-                      // Save selected vehicle data to GetStorage
                       box.write('vehicleType', selectedVehicleType);
                       box.write('vehicleModel', selectedVehicle!.model);
                       box.write('weeklyCharge', selectedVehicle!.rates!.weekly);
