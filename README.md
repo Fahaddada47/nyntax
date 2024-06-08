@@ -3,6 +3,10 @@
 
 Assessment task
 
+
+
+
+
 ## FLUTTER VERSION
 USE FVM VERSION 3.19.6
 ## Dependency 
@@ -14,5 +18,12 @@ USE FVM VERSION 3.19.6
   cached_network_image: ^3.3.1
 ## Demo
 
-Insert gif or link to demo
+https://github.com/Fahaddada47/nyntax/assets/93047848/ca0ab44f-5ce4-46f9-9ae2-a21a5baef9cb
 
+
+## For daily & hourly rent conflict
+
+
+check users hourly total rent > daily rent
+then give user a notification for choose rent daily
+ 
