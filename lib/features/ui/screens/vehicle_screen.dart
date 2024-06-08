@@ -94,7 +94,6 @@ class _VehicleInfoScreenState extends State<VehicleInfoScreen> {
                       box.write('weeklyCharge', selectedVehicle!.rates!.weekly);
                       box.write('dailyCharge', selectedVehicle!.rates!.daily);
                       box.write('hourlyCharge', selectedVehicle!.rates!.hourly);
-
                       ScaffoldMessenger.of(context).showSnackBar(
                         const SnackBar(content: Text('Processing Data')),
                       );
