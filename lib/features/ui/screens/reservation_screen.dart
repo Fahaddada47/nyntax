@@ -120,7 +120,7 @@ class _ReservationScreenState extends State<ReservationScreen> {
                 padding: const EdgeInsets.all(8.0),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(4.0),
-                  border: Border.all(color: Color(0xFFD7D7FF)),
+                  border: Border.all(color: const Color(0xFFD7D7FF)),
                 ),
                 child: Form(
                   key: _formKey,
@@ -235,20 +235,29 @@ class _ReservationScreenState extends State<ReservationScreen> {
                           ),
                           Container(
                             height: 45,
-                            width: 180,
+                            width: 160,
                             padding: const EdgeInsets.all(8.0),
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(4.0),
-                              border: Border.all(color: Color(0xFFD7D7FF)),
+                              border: Border.all(color: const Color(0xFFD7D7FF)),
                             ),
-                            child: Center(
-                              child: Text(durationController.text,style: getTextStyle(),),
+                            child: TextFormField(
+                              controller: durationController,
+                              readOnly: true,
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return 'Please enter the duration';
+                                }
+                                return null;
+                              },
+                              style: getTextStyle(fontWeight: FontWeight.w400),
+                              decoration: const InputDecoration(
+                                border: InputBorder.none,
+                              ),
                             ),
                           ),
-
                         ],
                       ),
-
                       // CustomTextField(
                       //   controller: durationController,
                       //   labelText: '',
@@ -267,7 +276,6 @@ class _ReservationScreenState extends State<ReservationScreen> {
                           style: getTextStyle(),
                         ),
                       ),
-
                       CustomTextField(
                         controller: discountController,
                         labelText: '',
