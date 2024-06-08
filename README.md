@@ -1,16 +1,18 @@
-# nyntax
 
-A new Flutter project.
+# NynTax Assessment 
 
-## Getting Started
+Assessment task
 
-This project is a starting point for a Flutter application.
+## FLUTTER VERSION
+USE FVM VERSION 3.19.6
+## Dependency 
+  get: ^4.6.6 
+  get_storage: ^2.1.1
+  http: ^1.2.1
+  intl: ^0.19.0
+  google_fonts: ^6.2.1
+  cached_network_image: ^3.3.1
+## Demo
 
-A few resources to get you started if this is your first Flutter project:
+Insert gif or link to demo
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
