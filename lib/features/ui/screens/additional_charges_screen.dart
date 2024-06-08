@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:nyntax/features/ui/screens/details.dart';
+import 'package:nyntax/features/ui/screens/order_details.dart';
 import 'package:nyntax/features/ui/widget/check_box_item.dart';
 
 class AdditionalChargesScreen extends StatefulWidget {
@@ -101,14 +101,14 @@ class _AdditionalChargesScreenState extends State<AdditionalChargesScreen> {
                 child: ElevatedButton(
                   onPressed: () {
                     List<String> selectedTitles = [];
-                    List<double> selectedValues = [];
+                    List<String> selectedValues = [];
                     for (var item in checkboxItems) {
                       if (item.value) {
                         selectedTitles.add(item.title);
                         if (item.price != null) {
-                          selectedValues.add(item.price!);
+                          selectedValues.add(item.price!.toStringAsFixed(2));
                         } else if (item.percentage != null) {
-                          selectedValues.add(item.percentage!);
+                          selectedValues.add('${item.percentage!}%');
                         }
                       }
                     }

@@ -55,12 +55,13 @@ class CustomTextField extends StatelessWidget {
             borderRadius: BorderRadius.circular(8.0),
             borderSide: const BorderSide(color: Colors.red),
           ),
-          contentPadding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
+          contentPadding:
+              const EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
           suffixIcon: suffixIcon != null
               ? IconButton(
-            icon: suffixIcon!,
-            onPressed: onSuffixIconPressed,
-          )
+                  icon: suffixIcon!,
+                  onPressed: onSuffixIconPressed,
+                )
               : null,
         ),
         keyboardType: keyboardType,

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:nyntax/features/controller/vehicle_controller.dart';
-import 'package:nyntax/features/ui/screens/customerinfo_screen.dart';
+import 'package:nyntax/features/ui/screens/additional_charges_screen.dart';
 import 'package:nyntax/features/ui/widget/custome_text_filed.dart';
 import '../../model/vehicle_model.dart' as vehicle_model;
 
@@ -38,9 +38,10 @@ class _VehicleInfoScreenState extends State<VehicleInfoScreen> {
   void searchVehicle() {
     setState(() {
       selectedVehicle = vehicleController.vehicle.value.data?.firstWhereOrNull(
-            (vehicle) =>
-        vehicle.type == selectedVehicleType &&
-            vehicle.model!.toLowerCase() == vehicleModelController.text.toLowerCase(),
+        (vehicle) =>
+            vehicle.type == selectedVehicleType &&
+            vehicle.model!.toLowerCase() ==
+                vehicleModelController.text.toLowerCase(),
       );
     });
   }
@@ -103,14 +104,17 @@ class _VehicleInfoScreenState extends State<VehicleInfoScreen> {
                       const SizedBox(height: 8.0),
                       Obx(() {
                         if (vehicleController.isLoading.value) {
-                          return const Center(child: CircularProgressIndicator());
+                          return const Center(
+                              child: CircularProgressIndicator());
                         }
-                        List<String> vehicleTypes = vehicleController.vehicle.value.data
-                            ?.map((vehicle) => vehicle.type)
-                            .where((type) => type != null)
-                            .toSet()
-                            .cast<String>()
-                            .toList() ?? [];
+                        List<String> vehicleTypes = vehicleController
+                                .vehicle.value.data
+                                ?.map((vehicle) => vehicle.type)
+                                .where((type) => type != null)
+                                .toSet()
+                                .cast<String>()
+                                .toList() ??
+                            [];
 
                         return DropdownButtonFormField<String>(
                           icon: const Icon(Icons.keyboard_arrow_down_outlined),
@@ -310,7 +314,7 @@ class _VehicleInfoScreenState extends State<VehicleInfoScreen> {
                       ScaffoldMessenger.of(context).showSnackBar(
                         const SnackBar(content: Text('Processing Data')),
                       );
-                      Get.to(CoustomerInfoScreen());
+                      Get.to(const AdditionalChargesScreen());
                     }
                   },
                   child: Text(
@@ -329,4 +333,3 @@ class _VehicleInfoScreenState extends State<VehicleInfoScreen> {
     );
   }
 }
-

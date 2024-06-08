@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:nyntax/features/ui/screens/details.dart';
+import 'package:nyntax/features/ui/screens/vehicle_screen.dart';
 import 'package:nyntax/features/ui/widget/custome_text_filed.dart';
-
-import 'additional_charges_screen.dart';
 
 class CoustomerInfoScreen extends StatefulWidget {
   @override
@@ -53,10 +51,11 @@ class _CoustomerInfoScreenState extends State<CoustomerInfoScreen> {
             Get.back();
           },
         ),
-        title: Text("Back",style: getTextStyle(),),
+        title: Text(
+          "Back",
+          style: getTextStyle(),
+        ),
       ),
-
-
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(16.0),
@@ -207,7 +206,7 @@ class _CoustomerInfoScreenState extends State<CoustomerInfoScreen> {
                       ScaffoldMessenger.of(context).showSnackBar(
                         const SnackBar(content: Text('Processing Data')),
                       );
-                      Get.to(AdditionalChargesScreen());
+                      Get.to(VehicleInfoScreen());
                     }
                   },
                   child: Text(
