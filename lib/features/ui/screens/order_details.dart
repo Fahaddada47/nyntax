@@ -48,7 +48,6 @@ class _DisplayReservationScreenState extends State<DisplayReservationScreen> {
     List<String> selectedTitles = List<String>.from(selectedTitlesDynamic.map((e) => e.toString()));
     List<String> selectedValues = List<String>.from(selectedValuesDynamic.map((e) => e.toString()));
 
-    // Extract duration components safely
     List<String> durationParts = duration.split(' ');
     int weeks = 0;
     int days = 0;
