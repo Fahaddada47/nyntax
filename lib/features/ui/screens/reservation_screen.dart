@@ -4,6 +4,7 @@ import 'package:nyntax/features/ui/screens/customerinfo_screen.dart';
 import 'package:nyntax/features/ui/widget/custome_text_filed.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:nyntax/features/ui/widget/text_styles.dart';
 
 class ReservationScreen extends StatefulWidget {
   const ReservationScreen({super.key});
@@ -21,22 +22,6 @@ class _ReservationScreenState extends State<ReservationScreen> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   final box = GetStorage();
-
-  String defaultFontFamily = 'Poppins';
-
-  TextStyle getTextStyle({
-    Color? color,
-    double? fontSize,
-    FontWeight? fontWeight,
-    String? fontFamily,
-  }) {
-    return TextStyle(
-      color: color ?? const Color(0xFF1B1B1B),
-      fontSize: fontSize ?? 14,
-      fontFamily: fontFamily ?? defaultFontFamily,
-      fontWeight: fontWeight ?? FontWeight.w300,
-    );
-  }
 
   Future<void> _selectDate(
       BuildContext context, TextEditingController controller) async {
@@ -233,7 +218,9 @@ class _ReservationScreenState extends State<ReservationScreen> {
                               style: getTextStyle(),
                             ),
                           ),
-                          const SizedBox(width: 35,),
+                          const SizedBox(
+                            width: 35,
+                          ),
                           Expanded(
                             child: CustomTextField(
                               controller: durationController,
@@ -247,7 +234,6 @@ class _ReservationScreenState extends State<ReservationScreen> {
                               },
                             ),
                           ),
-
                         ],
                       ),
                       // CustomTextField(

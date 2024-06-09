@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:nyntax/features/ui/screens/order_details.dart';
 import 'package:nyntax/features/ui/widget/check_box_item.dart';
+import 'package:nyntax/features/ui/widget/text_styles.dart';
 
 class AdditionalChargesScreen extends StatefulWidget {
   const AdditionalChargesScreen({super.key});
@@ -21,20 +22,6 @@ class _AdditionalChargesScreenState extends State<AdditionalChargesScreen> {
     CheckboxItem(title: 'Liability Insurance', price: 15.00),
     CheckboxItem(title: 'Rental Tax', percentage: 11.5),
   ];
-
-  TextStyle getTextStyle({
-    Color? color,
-    double? fontSize,
-    FontWeight? fontWeight,
-    String? fontFamily,
-  }) {
-    return TextStyle(
-      color: color ?? const Color(0xFF000000),
-      fontSize: fontSize ?? 14,
-      fontFamily: fontFamily ?? defaultFontFamily,
-      fontWeight: fontWeight ?? FontWeight.w400,
-    );
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -71,7 +58,7 @@ class _AdditionalChargesScreenState extends State<AdditionalChargesScreen> {
               Container(
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(4.0),
-                  border: Border.all(color: Color(0xFFD7D7FF)),
+                  border: Border.all(color: const Color(0xFFD7D7FF)),
                 ),
                 child: Column(
                   children: checkboxItems.map((item) {

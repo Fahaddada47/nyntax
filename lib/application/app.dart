@@ -1,3 +1,5 @@
+// ignore_for_file: unnecessary_import
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -22,8 +24,8 @@ class MyApp extends StatelessWidget {
         ),
         elevatedButtonTheme: ElevatedButtonThemeData(
           style: ElevatedButton.styleFrom(
-            fixedSize: Size(175, 48),
-            backgroundColor: Color(0xff5D5CFF),
+            fixedSize: const Size(175, 48),
+            backgroundColor: const Color(0xff5D5CFF),
             padding: const EdgeInsets.symmetric(vertical: 10),
             elevation: 3,
             shape: RoundedRectangleBorder(
@@ -33,7 +35,7 @@ class MyApp extends StatelessWidget {
         ),
       ),
       initialBinding: StateHolderBinder(),
-      home: ReservationScreen(),
+      home: const ReservationScreen(),
     );
   }
 }

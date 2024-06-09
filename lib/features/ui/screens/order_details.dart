@@ -1,30 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:nyntax/features/ui/widget/detail_container.dart';
+import 'package:nyntax/features/ui/widget/text_styles.dart';
 
 class DisplayReservationScreen extends StatefulWidget {
   const DisplayReservationScreen({super.key});
 
   @override
-  State<DisplayReservationScreen> createState() => _DisplayReservationScreenState();
+  State<DisplayReservationScreen> createState() =>
+      _DisplayReservationScreenState();
 }
 
 class _DisplayReservationScreenState extends State<DisplayReservationScreen> {
   final box = GetStorage();
-
-  TextStyle getTextStyle({
-    Color? color,
-    double? fontSize,
-    FontWeight? fontWeight,
-    String? fontFamily,
-  }) {
-    return TextStyle(
-      color: color ?? const Color(0xFF1B1B1B),
-      fontSize: fontSize ?? 14,
-      fontFamily: fontFamily ?? 'Poppins',
-      fontWeight: fontWeight ?? FontWeight.w400,
-    );
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -45,8 +33,10 @@ class _DisplayReservationScreenState extends State<DisplayReservationScreen> {
     List<dynamic> selectedTitlesDynamic = box.read('selectedTitles') ?? [];
     List<dynamic> selectedValuesDynamic = box.read('selectedValues') ?? [];
 
-    List<String> selectedTitles = List<String>.from(selectedTitlesDynamic.map((e) => e.toString()));
-    List<String> selectedValues = List<String>.from(selectedValuesDynamic.map((e) => e.toString()));
+    List<String> selectedTitles =
+        List<String>.from(selectedTitlesDynamic.map((e) => e.toString()));
+    List<String> selectedValues =
+        List<String>.from(selectedValuesDynamic.map((e) => e.toString()));
 
     List<String> durationParts = duration.split(' ');
     int weeks = 0;
@@ -76,15 +66,21 @@ class _DisplayReservationScreenState extends State<DisplayReservationScreen> {
       double value;
       if (valueStr.endsWith('%')) {
         double percentage = double.parse(valueStr.replaceAll('%', '')) / 100;
-        value = percentage * (totalWeeklyCharge + totalDailyCharge + totalHourlyCharge);
+        value = percentage *
+            (totalWeeklyCharge + totalDailyCharge + totalHourlyCharge);
       } else {
         value = double.parse(valueStr);
       }
       totalSelectedValues += value;
-      selectedItems.add({'label': selectedTitles[i], 'value': value.toStringAsFixed(2)});
+      selectedItems
+          .add({'label': selectedTitles[i], 'value': value.toStringAsFixed(2)});
     }
 
-    double netTotal = totalWeeklyCharge + totalDailyCharge + totalHourlyCharge + totalSelectedValues - discountValue;
+    double netTotal = totalWeeklyCharge +
+        totalDailyCharge +
+        totalHourlyCharge +
+        totalSelectedValues -
+        discountValue;
 
     return Scaffold(
       appBar: AppBar(
@@ -172,18 +168,28 @@ class _DisplayReservationScreenState extends State<DisplayReservationScreen> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text('Charge', style: getTextStyle(fontWeight: FontWeight.w600)),
-                      Text('Total', style: getTextStyle(fontWeight: FontWeight.w600)),
+                      Text('Charge',
+                          style: getTextStyle(fontWeight: FontWeight.w600)),
+                      Text('Total',
+                          style: getTextStyle(fontWeight: FontWeight.w600)),
                     ],
                   ),
                   const Divider(color: Color(0xFF5D5CFF)),
                   const SizedBox(height: 8),
                   Column(
                     children: [
-                      _buildChargeRow('Weekly (${weeks} week${weeks > 1 ? 's' : ''})', totalWeeklyCharge),
-                      _buildChargeRow('Daily (${days} day${days > 1 ? 's' : ''})', totalDailyCharge),
-                      _buildChargeRow('Hourly (${hours} hour${hours > 1 ? 's' : ''})', totalHourlyCharge),
-                      for (var item in selectedItems) _buildChargeRow(item['label']!, double.parse(item['value']!)),
+                      _buildChargeRow(
+                          'Weekly (${weeks} week${weeks > 1 ? 's' : ''})',
+                          totalWeeklyCharge),
+                      _buildChargeRow(
+                          'Daily (${days} day${days > 1 ? 's' : ''})',
+                          totalDailyCharge),
+                      _buildChargeRow(
+                          'Hourly (${hours} hour${hours > 1 ? 's' : ''})',
+                          totalHourlyCharge),
+                      for (var item in selectedItems)
+                        _buildChargeRow(
+                            item['label']!, double.parse(item['value']!)),
                       _buildChargeRow('Discount', -discountValue),
                     ],
                   ),
@@ -192,8 +198,10 @@ class _DisplayReservationScreenState extends State<DisplayReservationScreen> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text('Net Total:', style: getTextStyle(fontWeight: FontWeight.w600)),
-                      Text('\$${netTotal.toStringAsFixed(2)}', style: getTextStyle(fontWeight: FontWeight.w600)),
+                      Text('Net Total:',
+                          style: getTextStyle(fontWeight: FontWeight.w600)),
+                      Text('\$${netTotal.toStringAsFixed(2)}',
+                          style: getTextStyle(fontWeight: FontWeight.w600)),
                     ],
                   ),
                 ],

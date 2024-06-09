@@ -25,7 +25,7 @@ class DetailContainer extends StatelessWidget {
       padding: const EdgeInsets.all(8.0),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(4.0),
-        border: Border.all(color: Color(0xffD7D7FF)),
+        border: Border.all(color: const Color(0xffD7D7FF)),
       ),
       child: Column(
         children: details.map((detail) {
@@ -38,7 +38,7 @@ class DetailContainer extends StatelessWidget {
                   Text(detail['value'] ?? '', style: getTextStyle()),
                 ],
               ),
-              SizedBox(height: 8.0),
+              const SizedBox(height: 8.0),
             ],
           );
         }).toList(),

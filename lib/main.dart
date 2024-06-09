@@ -5,6 +5,6 @@ import 'package:nyntax/application/app.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await GetStorage.init();
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 

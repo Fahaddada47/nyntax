@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:nyntax/features/ui/screens/vehicle_screen.dart';
 import 'package:nyntax/features/ui/widget/custome_text_filed.dart';
+import 'package:nyntax/features/ui/widget/text_styles.dart';
 
 class CoustomerInfoScreen extends StatefulWidget {
   @override
@@ -18,22 +19,6 @@ class _CoustomerInfoScreenState extends State<CoustomerInfoScreen> {
 
   final box = GetStorage();
 
-  String defaultFontFamily = 'Poppins';
-
-  TextStyle getTextStyle({
-    Color? color,
-    double? fontSize,
-    FontWeight? fontWeight,
-    String? fontFamily,
-  }) {
-    return TextStyle(
-      color: color ?? const Color(0xFF1B1B1B),
-      fontSize: fontSize ?? 14,
-      fontFamily: fontFamily ?? defaultFontFamily,
-      fontWeight: fontWeight ?? FontWeight.w300,
-    );
-  }
-
   void _saveData() {
     box.write('firstName', firstNameController.text);
     box.write('lastName', lastNameController.text);
@@ -46,7 +31,7 @@ class _CoustomerInfoScreenState extends State<CoustomerInfoScreen> {
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
-          icon: Icon(Icons.arrow_back_ios_sharp),
+          icon: const Icon(Icons.arrow_back_ios_sharp),
           onPressed: () {
             Get.back();
           },
@@ -76,7 +61,7 @@ class _CoustomerInfoScreenState extends State<CoustomerInfoScreen> {
                 padding: const EdgeInsets.all(8.0),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(4.0),
-                  border: Border.all(color: Color(0xFFD7D7FF)),
+                  border: Border.all(color: const Color(0xFFD7D7FF)),
                 ),
                 child: Form(
                   key: _formKey,
