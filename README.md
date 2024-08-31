@@ -1,8 +1,4 @@
 
-# NynTax Assessment 
-
-Assessment task
-
 
 
 
