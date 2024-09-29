@@ -18,7 +18,7 @@ jobs:
       - uses: actions/setup-java@v3
         with:
           distribution: 'zulu'
-          java-version: '22.0.1+8'
+          java-version: '17'
       - uses: subosito/flutter-action@v2
         with:
           channel: 'stable'
@@ -39,7 +39,7 @@ jobs:
           tag: v1.0.${{ github.run_number }}
           token: ${{ secrets.TOKEN }}
         env:
-          JAVA_HOME: /Users/runner/hostedtoolcache/Java_Zulu_jdk/22.0.1-8/arm64
-          JAVA_HOME_22_ARM64: /Users/runner/hostedtoolcache/Java_Zulu_jdk/22.0.1-8/arm64
-          FLUTTER_ROOT: /Users/runner/hostedtoolcache/flutter/stable-3.22.2-x64
+          JAVA_HOME: /Users/runner/hostedtoolcache/Java_Zulu_jdk/17.0.8-8/arm64
+          JAVA_HOME_22_ARM64: /Users/runner/hostedtoolcache/Java_Zulu_jdk/17.0.8-8/arm64
+          FLUTTER_ROOT: /Users/runner/hostedtoolcache/flutter/stable-3.19.6-x64
           PUB_CACHE: /Users/runner/.pub-cache
